@@ -1,2 +1,2 @@
-rootProject.name='MyTaxiABC'
 include ':app'
+rootProject.name='NextopTaxi'
