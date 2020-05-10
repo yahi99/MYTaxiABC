@@ -33,16 +33,19 @@ public class MapLocationListener extends AppCompatActivity implements LocationLi
 
     @Override
     public void onLocationChanged(Location location) {
-        MapPOIItem marker = new MapPOIItem();
         this.mapView.setMapCenterPointAndZoomLevel(MapPoint.mapPointWithGeoCoord(location.getLatitude(), location.getLongitude()), 0, true);
 
-        this.mapView.removeAllPOIItems();
+        MapPOIItem marker = this.mapView.findPOIItemByTag(0);
+        marker.setMapPoint(MapPoint.mapPointWithGeoCoord(location.getLatitude(),location.getLongitude()));
+        //this.mapView.removeAllPOIItems();
+        /*
         marker.setItemName((int) location.getLatitude() + ", " + (int) location.getLongitude());
         marker.setMapPoint(MapPoint.mapPointWithGeoCoord(location.getLatitude(), location.getLongitude()));
         marker.setMarkerType(MapPOIItem.MarkerType.BluePin); // 기본으로 제공하는 마커 모양.
         marker.setSelectedMarkerType(MapPOIItem.MarkerType.RedPin); // 마커를 클릭했을때, 기본으로 제공하는 RedPin 마커 모양.
         marker.setDraggable(true);
         mapView.addPOIItem(marker);
+         */
     }
 
     @Override

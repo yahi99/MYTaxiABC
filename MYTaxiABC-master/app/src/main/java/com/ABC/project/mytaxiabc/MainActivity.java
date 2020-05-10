@@ -67,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
             marker.setMapPoint(MapPoint.mapPointWithGeoCoord(loc.getLatitude(), loc.getLongitude()));
             marker.setMarkerType(MapPOIItem.MarkerType.BluePin); // 기본으로 제공하는 마커 모양.
             marker.setSelectedMarkerType(MapPOIItem.MarkerType.RedPin); // 마커를 클릭했을때, 기본으로 제공하는 RedPin 마커 모양.
+            marker.setTag(0);
             marker.setDraggable(true);
             mapView.addPOIItem(marker);
 
