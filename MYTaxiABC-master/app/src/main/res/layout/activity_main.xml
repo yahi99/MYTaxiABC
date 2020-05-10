@@ -10,7 +10,7 @@
     <RelativeLayout
         android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="1400px"
         android:orientation="vertical">
 
         <RelativeLayout
@@ -20,11 +20,18 @@
     </RelativeLayout>
 
     <TextView
+        android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="150px"
-        app:layout_constraintBottom_toBottomOf="@+id/relativeLayout"
         android:text="asdf"
         android:textSize="15pt"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="150px"
+        android:text="asdf"
+        android:textSize="15pt"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
