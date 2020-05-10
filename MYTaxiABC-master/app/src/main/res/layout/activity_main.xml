@@ -7,13 +7,24 @@
     tools:context=".MainActivity">
 
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="vertical" android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
         <RelativeLayout
             android:id="@+id/map_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="150px"
+        app:layout_constraintBottom_toBottomOf="@+id/relativeLayout"
+        android:text="asdf"
+        android:textSize="15pt"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
