@@ -2,19 +2,17 @@ package com.ABC.project.mytaxiabc;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
-import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
+import com.ABC.project.mytaxiabc.location.MapEventListener;
 import com.ABC.project.mytaxiabc.location.MapLocationListener;
 
 import net.daum.mf.map.api.MapPOIItem;
@@ -25,11 +23,14 @@ public class MainActivity extends AppCompatActivity {
     private static final int PERMISSION_REQUEST_LOCATION = 10001;
     private LocationManager locationManager;
     private MapLocationListener locationListener;
+    private MapEventListener eventListener;
     private double latitude = 37.5571992;
     private double longitude = 126.970536;
+    private MapPoint mapPoint;
 
     public MainActivity() {
         this.locationListener = new MapLocationListener();
+        this.eventListener = new MapEventListener();
     }
 
     @Override
@@ -55,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
         ViewGroup mapViewContainer = (ViewGroup) findViewById(R.id.map_view);
         MapPOIItem marker = new MapPOIItem();
 
+        mapView.setMapViewEventListener(eventListener);
         locationListener.setMapView(mapView);
         //mapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOnWithHeading);  //현위치 트래킹 모드
 
@@ -63,7 +65,6 @@ public class MainActivity extends AppCompatActivity {
 
             //맵 Center 좌표 설정
             marker.setItemName((int) loc.getLatitude() + ", " + (int) loc.getLongitude());
-            marker.setTag(0);
             marker.setMapPoint(MapPoint.mapPointWithGeoCoord(loc.getLatitude(), loc.getLongitude()));
             marker.setMarkerType(MapPOIItem.MarkerType.BluePin); // 기본으로 제공하는 마커 모양.
             marker.setSelectedMarkerType(MapPOIItem.MarkerType.RedPin); // 마커를 클릭했을때, 기본으로 제공하는 RedPin 마커 모양.
