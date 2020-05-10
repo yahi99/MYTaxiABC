@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private MapPoint mapPoint;
 
     public MainActivity() {
-        this.locationListener = new MapLocationListener();
+        //this.locationListener = new MapLocationListener();
         this.eventListener = new MapEventListener();
     }
 
@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        this.locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 0.01f, this.locationListener);
+        //this.locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 0.01f, this.locationListener);
         Location loc = this.locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
 
         MapView mapView = new MapView(this);
@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
         MapPOIItem marker = new MapPOIItem();
 
         mapView.setMapViewEventListener(eventListener);
-        locationListener.setMapView(mapView);
+        //locationListener.setMapView(mapView);
         //mapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOnWithHeading);  //현위치 트래킹 모드
 
         if(loc != null) {
