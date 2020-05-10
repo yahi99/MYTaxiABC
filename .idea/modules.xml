@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/NextopTaxi.iml" filepath="$PROJECT_DIR$/NextopTaxi.iml" />
-      <module fileurl="file://$PROJECT_DIR$/NextopTaxi-GPS-NextopTaxi.iml" filepath="$PROJECT_DIR$/NextopTaxi-GPS-NextopTaxi.iml" group="NextopTaxi" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="NextopTaxi/app" />
+      <module fileurl="file://$PROJECT_DIR$/MyTaxiABC.iml" filepath="$PROJECT_DIR$/MyTaxiABC.iml" group="MyTaxiABC" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="MyTaxiABC/app" />
     </modules>
   </component>
 </project>

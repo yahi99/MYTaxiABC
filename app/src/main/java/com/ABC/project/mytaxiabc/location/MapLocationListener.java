@@ -36,6 +36,7 @@ public class MapLocationListener extends AppCompatActivity implements LocationLi
         MapPOIItem marker = new MapPOIItem();
         this.mapView.setMapCenterPointAndZoomLevel(MapPoint.mapPointWithGeoCoord(location.getLatitude(), location.getLongitude()), 0, true);
 
+        this.mapView.removeAllPOIItems();
         marker.setItemName((int) location.getLatitude() + ", " + (int) location.getLongitude());
         marker.setMapPoint(MapPoint.mapPointWithGeoCoord(location.getLatitude(), location.getLongitude()));
         marker.setMarkerType(MapPOIItem.MarkerType.BluePin); // 기본으로 제공하는 마커 모양.
