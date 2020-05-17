@@ -9,6 +9,7 @@ import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -47,6 +48,11 @@ public class MapLocationListener extends AppCompatActivity implements LocationLi
         marker.setDraggable(true);
         mapView.addPOIItem(marker);
 
+        TextView latitude = (TextView) findViewById(R.id.latitude);
+        TextView longitude = (TextView) findViewById(R.id.longitude);
+
+        latitude.setText(location.getLatitude() + "");
+        longitude.setText(location.getLongitude() + "");
     }
 
     @Override

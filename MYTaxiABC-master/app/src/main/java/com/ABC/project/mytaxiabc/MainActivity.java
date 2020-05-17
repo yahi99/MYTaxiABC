@@ -35,9 +35,11 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+
         this.locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
         // 안드로이드에서 권한 확인이 의무화 되어서 작성된 코드! 개념만 이해
