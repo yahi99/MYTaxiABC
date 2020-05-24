@@ -2,6 +2,10 @@ package com.ABC.project.mytaxiabc.location;
 
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.Handler;
+
+import com.ABC.project.mytaxiabc.AdressRequester;
+import com.ABC.project.mytaxiabc.models.Documents;
 
 import net.daum.mf.map.api.MapPOIItem;
 import net.daum.mf.map.api.MapPoint;
@@ -14,6 +18,16 @@ public class MapEventListener implements MapView.MapViewEventListener {
     private LocationManager locationManager;
     private LocationListener locationListener;
     private MapView mapView;
+
+    private Handler handler;
+    private Documents documents;
+    private Double lat;
+    private Double lng;
+
+    public MapEventListener(Handler handler) {
+        this.handler = handler;
+    }
+
 
     @Override
     public void onMapViewInitialized(MapView mapView) {
@@ -31,6 +45,9 @@ public class MapEventListener implements MapView.MapViewEventListener {
         marker.setDraggable(true);
         marker.setTag(0);
         mapView.addPOIItem(marker);
+
+        lat = mapCenterPoint.getMapPointGeoCoord().latitude;
+        lng = mapCenterPoint.getMapPointGeoCoord().longitude;
     }
 
     @Override
@@ -64,7 +81,19 @@ public class MapEventListener implements MapView.MapViewEventListener {
     }
 
     @Override
-    public void onMapViewMoveFinished(MapView mapView, MapPoint mapPoint) {
+    public void onMapViewMoveFinished(MapView mapView, MapPoint mapCenterPoint) {
+        Thread request = new Thread(new AdressRequester(mapCenterPoint.getMapPointGeoCoord().latitude, mapCenterPoint.getMapPointGeoCoord().longitude, handler));
+        request.start();
 
+        lat = mapCenterPoint.getMapPointGeoCoord().latitude;
+        lng = mapCenterPoint.getMapPointGeoCoord().longitude;
+    }
+
+    public Double getLat() {
+        return lat;
+    }
+
+    public Double getLng() {
+        return lng;
     }
 }

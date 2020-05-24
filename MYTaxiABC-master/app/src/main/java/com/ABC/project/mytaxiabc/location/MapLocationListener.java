@@ -8,6 +8,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
@@ -15,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
+import com.ABC.project.mytaxiabc.AdressRequester;
 import com.ABC.project.mytaxiabc.R;
 
 import net.daum.mf.map.api.MapPOIItem;
@@ -27,9 +29,10 @@ public class MapLocationListener extends AppCompatActivity implements LocationLi
     private LocationManager locationManager;
     private LocationListener locationListener;
     private MapView mapView;
+    public Handler handler;
 
-    public MapLocationListener() {
-
+    public MapLocationListener(Handler handler) {
+        this.handler = handler;
     }
 
     @Override
@@ -48,11 +51,8 @@ public class MapLocationListener extends AppCompatActivity implements LocationLi
         marker.setDraggable(true);
         mapView.addPOIItem(marker);
 
-        TextView latitude = (TextView) findViewById(R.id.latitude);
-        TextView longitude = (TextView) findViewById(R.id.longitude);
-
-        latitude.setText(location.getLatitude() + "");
-        longitude.setText(location.getLongitude() + "");
+        Thread request = new Thread(new AdressRequester(location.getLatitude(), location.getLongitude(), handler));
+        request.start();
     }
 
     @Override

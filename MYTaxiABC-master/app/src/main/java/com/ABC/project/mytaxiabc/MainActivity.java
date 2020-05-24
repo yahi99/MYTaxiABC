@@ -10,10 +10,16 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.ABC.project.mytaxiabc.location.MapEventListener;
 import com.ABC.project.mytaxiabc.location.MapLocationListener;
+import com.ABC.project.mytaxiabc.models.AddressModel;
+import com.ABC.project.mytaxiabc.models.DisplayItem;
+import com.ABC.project.mytaxiabc.models.Documents;
 
 import net.daum.mf.map.api.MapPOIItem;
 import net.daum.mf.map.api.MapPoint;
@@ -24,21 +30,17 @@ public class MainActivity extends AppCompatActivity {
     private LocationManager locationManager;
     private MapLocationListener locationListener;
     private MapEventListener eventListener;
-    private double latitude = 37.5571992;
-    private double longitude = 126.970536;
     private MapPoint mapPoint;
 
     public MainActivity() {
-        //this.locationListener = new MapLocationListener();
-        this.eventListener = new MapEventListener();
+        this.eventListener = new MapEventListener(makeHandler());
+        this.locationListener = new MapLocationListener(makeHandler());
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
 
         this.locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
@@ -51,7 +53,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        //this.locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 0.01f, this.locationListener);
         Location loc = this.locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
 
         MapView mapView = new MapView(this);
@@ -59,8 +60,6 @@ public class MainActivity extends AppCompatActivity {
         MapPOIItem marker = new MapPOIItem();
 
         mapView.setMapViewEventListener(eventListener);
-        //locationListener.setMapView(mapView);
-        //mapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOnWithHeading);  //현위치 트래킹 모드
 
         if(loc != null) {
             mapView.setMapCenterPointAndZoomLevel(MapPoint.mapPointWithGeoCoord(loc.getLatitude(), loc.getLongitude()), 0, true);
@@ -76,6 +75,38 @@ public class MainActivity extends AppCompatActivity {
 
             mapViewContainer.addView(mapView);
         }
+    }
+
+    public Handler makeHandler() {
+        return new Handler() {
+            @Override
+            public void handleMessage(@NonNull Message msg) {
+                super.handleMessage(msg);
+
+                DisplayItem displayItem = (DisplayItem) msg.obj;
+                AddressModel addressModel = displayItem.addressModel;
+                Documents documents = addressModel.documents.get(0);
+
+                TextView address = (TextView) findViewById(R.id.address);
+                if(addressModel.documents.size() > 0) {
+                    if(documents.road_address != null) {
+                        if(documents.road_address.building_name != null) address.setText(documents.road_address.building_name);
+                        else address.setText(documents.road_address.address_name);
+                    }
+                    else{
+                        address.setText(documents.address.address_name);
+                    }
+                }
+
+                if(documents.address.address_name != null) address.setText(documents.address.address_name);
+
+                TextView latitude = (TextView) findViewById(R.id.latitude);
+                TextView longitude = (TextView) findViewById(R.id.longitude);
+
+                latitude.setText(displayItem.latitude.toString());
+                longitude.setText(displayItem.longitude.toString());
+            }
+        };
     }
 
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
