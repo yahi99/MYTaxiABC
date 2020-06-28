@@ -5,6 +5,7 @@ import android.location.LocationManager;
 import android.os.Handler;
 
 import com.ABC.project.mytaxiabc.AdressRequester;
+import com.ABC.project.mytaxiabc.MainActivity;
 import com.ABC.project.mytaxiabc.models.Documents;
 
 import net.daum.mf.map.api.MapPOIItem;
